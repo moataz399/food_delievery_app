@@ -2,15 +2,15 @@ class Product {
   int? _totalSize;
   int? _typeId;
   int? _offset;
-  late List<PopularProductsModel> _products;
+  late List<RecommendedProductsModel> _products;
 
-  List<PopularProductsModel> get products => _products;
+  List<RecommendedProductsModel> get products => _products;
 
   Product(
       {required totalSize,
-      required typeId,
-      required offset,
-      required products}) {
+        required typeId,
+        required offset,
+        required products}) {
     _totalSize = totalSize;
     _typeId = typeId;
     _offset = offset;
@@ -22,15 +22,15 @@ class Product {
     _typeId = json['type_id'];
     _offset = json['offset'];
     if (json['products'] != null) {
-      _products = <PopularProductsModel>[];
+      _products = <RecommendedProductsModel>[];
       json['products'].forEach((e) {
-        _products.add( PopularProductsModel.fromJson(e));
+        _products.add( RecommendedProductsModel.fromJson(e));
       });
     }
   }
 }
 
-class PopularProductsModel {
+class RecommendedProductsModel {
   int? id;
   String? name;
   String? description;
@@ -42,19 +42,19 @@ class PopularProductsModel {
   String? updatedAt;
   int? typeId;
 
-  PopularProductsModel(
+  RecommendedProductsModel(
       {this.id,
-      this.name,
-      this.description,
-      this.price,
-      this.stars,
-      this.img,
-      this.location,
-      this.createdAt,
-      this.updatedAt,
-      this.typeId});
+        this.name,
+        this.description,
+        this.price,
+        this.stars,
+        this.img,
+        this.location,
+        this.createdAt,
+        this.updatedAt,
+        this.typeId});
 
-  PopularProductsModel.fromJson(Map<String, dynamic> json) {
+  RecommendedProductsModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     description = json['description'];

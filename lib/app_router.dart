@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delievery_app/presentation/screens/food/food_detail.dart';
-import 'package:food_delievery_app/presentation/screens/food/recommended_foo_details.dart';
+import 'package:food_delievery_app/presentation/screens/food/recommended_food_details.dart';
 import 'package:food_delievery_app/presentation/screens/home/main_food_page.dart';
 
 import 'constants/strings.dart';

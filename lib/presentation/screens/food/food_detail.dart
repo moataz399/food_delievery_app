@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delievery_app/presentation/widgets/app_icon.dart';
 import 'package:food_delievery_app/presentation/widgets/big_text.dart';
-import 'package:food_delievery_app/presentation/widgets/reate_container.dart';
+import 'package:food_delievery_app/presentation/widgets/rate_container.dart';
 import 'package:food_delievery_app/utils/colors.dart';
 import 'package:food_delievery_app/utils/dimensions.dart';
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delievery_app/controllers/popular_product_controller.dart';
+import 'package:food_delievery_app/controllers/recommended_food_controller.dart';
 import 'package:get/get.dart';
 
 import 'app_router.dart';
@@ -13,8 +14,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await dep.init();
-  initialRoute = recommendedFoodDetails;
-
+  initialRoute = mainFoodPage;
 
   runApp(MyApp(
     appRouter: AppRouter(),
@@ -24,12 +24,12 @@ void main() async {
 class MyApp extends StatelessWidget {
   final AppRouter appRouter;
 
-   MyApp({required this.appRouter});
+  MyApp({required this.appRouter});
 
   @override
   Widget build(BuildContext context) {
     Get.find<PopularProductController>().getPopularProductList();
-
+    Get.find<RecommendedFoodController>().getRecommendedProductList();
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
