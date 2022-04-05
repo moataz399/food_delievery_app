@@ -1,33 +1,45 @@
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:food_delievery_app/app_router.dart';
+import 'package:food_delievery_app/controllers/recommended_food_controller.dart';
+import 'package:food_delievery_app/models/recommended_model.dart';
 import 'package:food_delievery_app/presentation/screens/food/expandable_text.dart';
 import 'package:food_delievery_app/presentation/widgets/app_icon.dart';
 import 'package:food_delievery_app/presentation/widgets/big_text.dart';
 import 'package:food_delievery_app/utils/colors.dart';
 import 'package:food_delievery_app/utils/dimensions.dart';
+import 'package:get/get.dart';
+import 'package:get/route_manager.dart';
 
-class RecommendedFoodDetails extends StatefulWidget {
-  const RecommendedFoodDetails({Key? key}) : super(key: key);
+import '../../../constants/strings.dart';
 
-  @override
-  State<RecommendedFoodDetails> createState() => _RecommendedFoodDetailsState();
-}
+class RecommendedFoodDetails extends StatelessWidget {
+  final int pageId;
+  const   RecommendedFoodDetails({Key? key,required this.pageId}) : super(key: key);
 
-class _RecommendedFoodDetailsState extends State<RecommendedFoodDetails> {
+
+
+
+
   @override
   Widget build(BuildContext context) {
+    RecommendedProductsModel  product = Get.find<RecommendedFoodController>().recommendedProductList[pageId];
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: false,
             backgroundColor: AppColors.mainColor,
             toolbarHeight: 70,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppIcon(icon: Icons.clear),
+                GestureDetector(onTap: (){
+                  Get.toNamed(AppRouter.getInitial());
+                },child: AppIcon(icon: Icons.clear)),
                 AppIcon(icon: Icons.shopping_cart_outlined)
               ],
             ),
@@ -44,7 +56,7 @@ class _RecommendedFoodDetailsState extends State<RecommendedFoodDetails> {
                 ),
                 child: Center(
                     child: BigText(
-                  text: ' moataz mohamed',
+                  text:product.name!,
                   size: Dimensions.font26,
                 )),
               ),
@@ -52,8 +64,8 @@ class _RecommendedFoodDetailsState extends State<RecommendedFoodDetails> {
             pinned: true,
             expandedHeight: 300,
             flexibleSpace: FlexibleSpaceBar(
-              background: Image.asset(
-                'assets/images/food1.jpg',
+              background: Image.network(
+                AppStrings.appBaseUrl+AppStrings.uploadUrl+product.img!,
                 fit: BoxFit.cover,
                 width: double.maxFinite,
               ),
@@ -68,8 +80,7 @@ class _RecommendedFoodDetailsState extends State<RecommendedFoodDetails> {
               child: Column(
                 children: [
                   ExpandableText(
-                    text:
-                        'moataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz momoataz mohamed refmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz momoataz mohamed refat sdklfjmmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz momoataz mohamed refat sdklfjmmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz momoataz mohamed refat sdklfjmmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz momoataz mohamed refat sdklfjmmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz momoataz mohamed refat sdklfjmmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz momoataz mohamed refat sdklfjmmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz momoataz mohamed refat sdklfjmmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz momoataz mohamed refat sdklfjmmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz momoataz mohamed refat sdklfjmmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz momoataz mohamed refat sdklfjmmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz momoataz mohamed refat sdklfjmmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz momoataz mohamed refat sdklfjmmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz momoataz mohamed refat sdklfjmmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz momoataz mohamed refat sdklfjmmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz momoataz mohamed refat sdklfjmmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz momoataz mohamed refat sdklfjmat sdklfjmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz mohamed refat sdklfjmoataz mohamhamed refat sdklfjmoataz mohamed refat sdklfj',
+                    text:product.description!,
                   )
                 ],
               ),
@@ -95,7 +106,7 @@ class _RecommendedFoodDetailsState extends State<RecommendedFoodDetails> {
                     iconColor: Colors.white,
                     backGroundColor: AppColors.mainColor,
                     iconsSize: Dimensions.iconsSize24),
-                BigText(text: '\$ 12 '+' X '+' 0',color: AppColors.mainColor,size: Dimensions.font26,),
+                BigText(text: '\$ ${product.price} '+' X '+' 0',color: AppColors.mainColor,size: Dimensions.font26,),
                 AppIcon(
                     icon: Icons.add,
                     iconColor: Colors.white,
@@ -127,19 +138,21 @@ class _RecommendedFoodDetailsState extends State<RecommendedFoodDetails> {
                   ),
                   child: Icon(Icons.favorite,color: AppColors.mainColor,),
                 ),
-                Container(
-                  padding: EdgeInsets.only(
-                      left: Dimensions.width20,
-                      right: Dimensions.width20,
-                      top: Dimensions.height20,
-                      bottom: Dimensions.height20),
-                  decoration: BoxDecoration(
-                    color: AppColors.mainColor,
-                    borderRadius: BorderRadius.circular(Dimensions.radius20),
-                  ),
-                  child: BigText(
-                    text: '\$12| Add to cart ',
-                    color: Colors.white,
+                Flexible(
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        left: Dimensions.width20,
+                        right: Dimensions.width20,
+                        top: Dimensions.height20,
+                        bottom: Dimensions.height20),
+                    decoration: BoxDecoration(
+                      color: AppColors.mainColor,
+                      borderRadius: BorderRadius.circular(Dimensions.radius20),
+                    ),
+                    child: BigText(
+                      text: '\$${product.price} | Add to cart ',
+                      color: Colors.white,
+                    ),
                   ),
                 )
               ],

@@ -14,17 +14,17 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await dep.init();
-  initialRoute = mainFoodPage;
+
 
   runApp(MyApp(
-    appRouter: AppRouter(),
+
   ));
 }
 
 class MyApp extends StatelessWidget {
-  final AppRouter appRouter;
+  MyApp();
 
-  MyApp({required this.appRouter});
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +33,10 @@ class MyApp extends StatelessWidget {
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      onGenerateRoute: appRouter.generateRoute,
-      initialRoute: initialRoute,
+      initialRoute:AppRouter.initial ,
+      getPages: AppRouter.routes,
     );
   }
+
+
 }

@@ -9,6 +9,8 @@ class RateContainer extends StatelessWidget {
   const RateContainer({Key? key,required this.text}) : super(key: key);
   final String  text;
 
+
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -18,7 +20,7 @@ class RateContainer extends StatelessWidget {
         SizedBox(
           height: Dimensions.height10,
         ),
-        SmallText(text: ' this is a description text '),
+
         SizedBox(
           height: Dimensions.height10,
         ),
