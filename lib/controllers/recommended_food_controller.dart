@@ -1,6 +1,6 @@
 import 'package:food_delievery_app/data/repository/recommended_food_repo.dart';
-import 'package:food_delievery_app/models/recommended_model.dart';
 import 'package:get/get.dart';
+import '../models/product_models.dart';
 
 class RecommendedFoodController extends GetxController{
 
