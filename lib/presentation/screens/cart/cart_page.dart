@@ -20,7 +20,7 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: [
+        children:  [
           Positioned(
             top: Dimensions.height20 * 3,
             left: Dimensions.width20,
@@ -35,7 +35,9 @@ class CartPage extends StatelessWidget {
                       backGroundColor: AppColors.mainColor,
                       iconsSize: Dimensions.iconsSize24,
                     ),
-                    onTap: () {}),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                    }),
                 SizedBox(
                   width: Dimensions.width20,
                 ),
@@ -50,11 +52,17 @@ class CartPage extends StatelessWidget {
                     iconsSize: Dimensions.iconsSize24,
                   ),
                 ),
-                AppIcon(
-                  icon: Icons.shopping_cart,
-                  iconColor: Colors.white,
-                  backGroundColor: AppColors.mainColor,
-                  iconsSize: Dimensions.iconsSize24,
+
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed(AppRouter.getCartHistoryPage());
+                  },
+                  child: AppIcon(
+                    icon: Icons.shopping_cart,
+                    iconColor: Colors.white,
+                    backGroundColor: AppColors.mainColor,
+                    iconsSize: Dimensions.iconsSize24,
+                  ),
                 ),
               ],
             ),
@@ -315,7 +323,7 @@ class CartPage extends StatelessWidget {
                     )
                   ],
                 )
-              : Container() ,
+              : Container(),
         );
       }),
     );

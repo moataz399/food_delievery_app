@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_delievery_app/presentation/screens/home/food_page_body.dart';
+import 'package:food_delievery_app/presentation/screens/auth/signin_page.dart';
 import 'package:food_delievery_app/presentation/screens/home/main_food_page.dart';
 import 'package:food_delievery_app/utils/colors.dart';
 
@@ -16,9 +16,11 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   List pages = [
     MainFoodPage(),
-    Container(
-      child: Center(child: Text('page 1')),
-    ),
+
+    SignInPage(),
+    // Container(
+    //   child: Center(child: Text('page 1')),
+    // ),
     CartHistoryPage(),
     Container(
       child: Center(child: Text('page 3')),

@@ -8,7 +8,9 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../controllers/auth_controller.dart';
 import '../controllers/cart_controller.dart';
+import '../data/repository/auth_repo.dart';
 import '../data/repository/cart_repo.dart';
 
 Future<void> init() async {
@@ -25,4 +27,9 @@ Future<void> init() async {
 
   Get.lazyPut(() => CartRepo(sharedPreferences: Get.find()));
   Get.lazyPut(() => CartController(cartRepo: Get.find()));
+
+  Get.lazyPut(
+      () => AuthRepo(apiClient: Get.find(), sharedPreferences: Get.find()));
+
+  Get.lazyPut(() => AuthController(authRepo: Get.find()));
 }

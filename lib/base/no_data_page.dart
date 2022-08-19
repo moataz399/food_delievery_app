@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delievery_app/utils/dimensions.dart';
 
 class NoDataPage extends StatelessWidget {
   final String text;
