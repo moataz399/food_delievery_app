@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:food_delievery_app/presentation/screens/auth/signin_page.dart';
+import 'package:food_delievery_app/presentation/screens/auth/signup_page.dart';
 import 'package:food_delievery_app/presentation/screens/cart/cart_history_page.dart';
 import 'package:food_delievery_app/presentation/screens/cart/cart_page.dart';
 import 'package:food_delievery_app/presentation/screens/food/popular_food_details.dart';
@@ -7,7 +9,6 @@ import 'package:food_delievery_app/presentation/screens/home/home_page.dart';
 import 'package:food_delievery_app/presentation/screens/splash_page.dart';
 import 'package:get/get.dart';
 
-
 class AppRouter {
   static const String initial = '/';
   static const String popularFoodDetails = '/popular-food-details';
@@ -15,11 +16,18 @@ class AppRouter {
   static const String cartPage = '/cartPage';
   static const String splashPage = '/splash-page';
 
+  static const String signUpPage = '/signUp-page';
+  static const String signInPage = '/signIn-page';
+
   static const String cartHistoryPage = '/cart-history-page';
 
   static String getCartHistoryPage() => '$cartHistoryPage';
 
   static String getInitial() => '$initial';
+
+  static String getSignInPage() => '$signInPage';
+
+  static String getSignUpPage() => '$signUpPage';
 
   static String getSplashPage() => '$splashPage';
 
@@ -35,6 +43,8 @@ class AppRouter {
     GetPage(name: splashPage, page: () => SplashScreen()),
     GetPage(name: cartHistoryPage, page: () => CartHistoryPage()),
     GetPage(name: initial, page: () => HomePage()),
+    GetPage(name: signInPage, page: () => SignInPage()),
+    GetPage(name: signUpPage, page: () => SignUpPage()),
     GetPage(
         name: popularFoodDetails,
         page: () {

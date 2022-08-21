@@ -11,6 +11,7 @@ import 'package:food_delievery_app/utils/colors.dart';
 import 'package:food_delievery_app/utils/dimensions.dart';
 import 'package:get/get.dart';
 
+import '../../../controllers/auth_controller.dart';
 import '../../widgets/app_icon.dart';
 
 class CartPage extends StatelessWidget {
@@ -20,7 +21,7 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children:  [
+        children: [
           Positioned(
             top: Dimensions.height20 * 3,
             left: Dimensions.width20,
@@ -52,7 +53,6 @@ class CartPage extends StatelessWidget {
                     iconsSize: Dimensions.iconsSize24,
                   ),
                 ),
-
                 GestureDetector(
                   onTap: () {
                     Get.toNamed(AppRouter.getCartHistoryPage());
@@ -313,7 +313,13 @@ class CartPage extends StatelessWidget {
                               BorderRadius.circular(Dimensions.radius20),
                         ),
                         child: GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            if (Get.find<AuthController>().userLoggedIn()) {
+                              cartController.addToHistory();
+                            } else {
+                              Get.toNamed(AppRouter.getSignInPage());
+                            }
+                          },
                           child: BigText(
                             text: ' check out',
                             color: Colors.white,

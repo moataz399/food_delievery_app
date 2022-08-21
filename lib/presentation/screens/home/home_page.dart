@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:food_delievery_app/app_router.dart';
+import 'package:food_delievery_app/controllers/auth_controller.dart';
+import 'package:food_delievery_app/controllers/cart_controller.dart';
 import 'package:food_delievery_app/presentation/screens/auth/signin_page.dart';
 import 'package:food_delievery_app/presentation/screens/home/main_food_page.dart';
 import 'package:food_delievery_app/utils/colors.dart';
+import 'package:get/get.dart';
 
+import '../../../utils/dimensions.dart';
+import '../account/account_page.dart';
 import '../cart/cart_history_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,14 +23,48 @@ class _HomePageState extends State<HomePage> {
   List pages = [
     MainFoodPage(),
 
-    SignInPage(),
-    // Container(
-    //   child: Center(child: Text('page 1')),
-    // ),
-    CartHistoryPage(),
     Container(
-      child: Center(child: Text('page 3')),
+      child: Center(child: Text('page 1')),
     ),
+    CartHistoryPage(),
+    // Container(
+    //   child: Center(
+    //       child: Center(
+    //     child: GestureDetector(
+    //       onTap: () {
+    //         if (!Get.find<AuthController>().userLoggedIn()) {
+    //           Get.find<AuthController>().clearSharedData();
+    //           Get.find<AuthController>().clearSharedData();
+    //           Get.find<CartController>().clearCartList();
+    //           Get.find<CartController>().clear();
+    //
+    //           Get.toNamed(AppRouter.getSignUpPage());
+    //         } else {
+    //           print('u logged out');
+    //         }
+    //       },
+    //       child: Center(
+    //         child: Container(
+    //           decoration: BoxDecoration(
+    //               color: Colors.red,
+    //               borderRadius: BorderRadius.circular(
+    //                 Dimensions.radius30,
+    //               )),
+    //           width: Dimensions.screenWidth / 2,
+    //           height: Dimensions.screenHeight / 13,
+    //           child: Center(
+    //             child: Text(
+    //               'log out',
+    //               style: TextStyle(
+    //                   color: Colors.white, fontSize: Dimensions.font26),
+    //             ),
+    //           ),
+    //         ),
+    //       ),
+    //     ),
+    //   )),
+    // ),
+    AccountPage(),
   ];
 
   void onTapNav(index) {

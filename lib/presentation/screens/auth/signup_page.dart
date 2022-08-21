@@ -56,9 +56,9 @@ class SignUpPage extends StatelessWidget {
           if (status.isSuccess) {
             print("success register");
 
-         //   Get.toNamed(AppRouter.getInitial());
-            Get.toNamed(AppRouter.getCartPage());
+            //   Get.toNamed(AppRouter.getInitial());
 
+            Get.offNamed(AppRouter.getInitial());
           } else {
             showCustomSnackBar(status.message);
             print('failed');

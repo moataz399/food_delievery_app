@@ -14,30 +14,27 @@ import '../../widgets/text_field.dart';
 class SignInPage extends StatelessWidget {
   SignInPage({Key? key}) : super(key: key);
 
-  var emailController = TextEditingController();
+  var phoneController = TextEditingController();
   var passwordController = TextEditingController();
 
   void _login(AuthController authController) {
-    String email = emailController.text.trim();
+    String phone = phoneController.text.trim();
     String password = passwordController.text.trim();
 
-    if (email.isEmpty) {
-      showCustomSnackBar('type in your email address', title: "Email address");
-    } else if (!GetUtils.isEmail(email)) {
-      showCustomSnackBar('type in your email address ',
-          title: " Valid email address ");
+    if (phone.isEmpty) {
+      showCustomSnackBar('type in your phone address', title: "phone address");
+
     } else if (password.isEmpty) {
       showCustomSnackBar('type in your password ', title: "Password ");
     } else if (password.length < 6) {
       showCustomSnackBar('password is less than 6 characters  ',
           title: "password  ");
     } else {
-      authController.login(email, password).then((status) {
+      authController.login(phone, password).then((status) {
         if (status.isSuccess) {
           print("success login");
 
-        //  Get.toNamed(AppRouter.getInitial());
-          Get.toNamed(AppRouter.getCartPage());
+          Get.offNamed(AppRouter.getInitial());
 
         } else {
           showCustomSnackBar(status.message);
@@ -88,9 +85,9 @@ class SignInPage extends StatelessWidget {
                       ),
                       AppTextField(
                         obSecure: false,
-                        textEditingController: emailController,
-                        hintText: 'email',
-                        icon: Icons.email,
+                        textEditingController: phoneController,
+                        hintText: 'phone',
+                        icon: Icons.phone,
                       ),
                       SizedBox(
                         height: Dimensions.height20,

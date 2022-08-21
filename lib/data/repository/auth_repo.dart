@@ -15,12 +15,12 @@ class AuthRepo {
         AppStrings.registerUri, signUpModel.toJson());
   }
 
-  Future<Response> login(String email, String password) async {
+  Future<Response> login(String phone, String password) async {
     return await apiClient
-        .postData(AppStrings.loginUri, {"email": email, "password": password});
+        .postData(AppStrings.loginUri, {"phone": phone, "password": password});
   }
 
-  Future<bool >saveUserToken(String token) async {
+  Future<bool> saveUserToken(String token) async {
     apiClient.token = token;
     apiClient.updateHeader(token);
     // return await sharedPreferences.remove(AppStrings.TOKEN);
@@ -37,23 +37,20 @@ class AuthRepo {
   }
 
   Future<String> getUserToken() async {
-    return await sharedPreferences.getString(AppStrings.TOKEN) ?? "none";
+    return sharedPreferences.getString(AppStrings.TOKEN) ?? "none";
   }
 
- bool userLoggedIn()  {
-    return  sharedPreferences.containsKey(AppStrings.TOKEN) ;
+  bool userLoggedIn() {
+    return sharedPreferences.containsKey(AppStrings.TOKEN);
   }
 
+  bool clearSharedData() {
+    sharedPreferences.remove(AppStrings.TOKEN);
+    sharedPreferences.remove(AppStrings.password);
+    sharedPreferences.remove(AppStrings.phone);
 
-  bool clearSharedData(){
-sharedPreferences.remove(AppStrings.TOKEN);
-sharedPreferences.remove(AppStrings.password);
-sharedPreferences.remove(AppStrings.phone);
-
-apiClient.token='';
-apiClient.updateHeader('');
-return true;
-
-
+    apiClient.token = '';
+    apiClient.updateHeader('');
+    return true;
   }
 }

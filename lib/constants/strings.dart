@@ -7,6 +7,9 @@ class AppStrings {
   static const String registerUri = '/api/v1/auth/register';
   static const String loginUri = '/api/v1/auth/login';
 
+  static const String userInfo = '/api/v1/customer/info';
+
+
   static const TOKEN = '';
 
   static const phone = '';
