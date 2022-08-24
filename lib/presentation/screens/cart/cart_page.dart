@@ -5,6 +5,7 @@ import 'package:food_delievery_app/constants/strings.dart';
 import 'package:food_delievery_app/controllers/cart_controller.dart';
 import 'package:food_delievery_app/controllers/popular_product_controller.dart';
 import 'package:food_delievery_app/controllers/recommended_food_controller.dart';
+import 'package:food_delievery_app/controllers/user_controller.dart';
 import 'package:food_delievery_app/presentation/widgets/big_text.dart';
 import 'package:food_delievery_app/presentation/widgets/small_text.dart';
 import 'package:food_delievery_app/utils/colors.dart';
@@ -12,6 +13,7 @@ import 'package:food_delievery_app/utils/dimensions.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/auth_controller.dart';
+import '../../../controllers/location_controller.dart';
 import '../../widgets/app_icon.dart';
 
 class CartPage extends StatelessWidget {
@@ -20,6 +22,7 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           Positioned(
@@ -313,9 +316,14 @@ class CartPage extends StatelessWidget {
                               BorderRadius.circular(Dimensions.radius20),
                         ),
                         child: GestureDetector(
-                          onTap: () {
+                          onTap: ()async {
                             if (Get.find<AuthController>().userLoggedIn()) {
-                              cartController.addToHistory();
+                            await  Get.find<UserController>().getUserInfo();
+                              if (Get.find<LocationController>()
+                                  .addressList
+                                  .isEmpty) {
+                                Get.toNamed(AppRouter.getAddressPage());
+                              }
                             } else {
                               Get.toNamed(AppRouter.getSignInPage());
                             }

@@ -33,6 +33,10 @@ dependencies:
   get: ^4.6.1
   shared_preferences: ^2.0.14
   intl: ^0.17.0
+  google_maps_flutter: ^2.1.12
+  geocoding: ^2.0.4
+  geolocator: ^9.0.1
+
   #persistent_bottom_nav_bar: ^4.0.2
 
 

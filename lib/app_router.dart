@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delievery_app/presentation/screens/address/add_address_page.dart';
 import 'package:food_delievery_app/presentation/screens/auth/signin_page.dart';
 import 'package:food_delievery_app/presentation/screens/auth/signup_page.dart';
 import 'package:food_delievery_app/presentation/screens/cart/cart_history_page.dart';
@@ -18,12 +19,16 @@ class AppRouter {
 
   static const String signUpPage = '/signUp-page';
   static const String signInPage = '/signIn-page';
+  static const String addressPage= '/address_page';
+
 
   static const String cartHistoryPage = '/cart-history-page';
 
   static String getCartHistoryPage() => '$cartHistoryPage';
 
   static String getInitial() => '$initial';
+  static String getAddressPage() => '$addressPage';
+
 
   static String getSignInPage() => '$signInPage';
 
@@ -45,6 +50,7 @@ class AppRouter {
     GetPage(name: initial, page: () => HomePage()),
     GetPage(name: signInPage, page: () => SignInPage()),
     GetPage(name: signUpPage, page: () => SignUpPage()),
+    GetPage(name: addressPage, page: () => AddAddressPage()),
     GetPage(
         name: popularFoodDetails,
         page: () {

@@ -14,8 +14,6 @@ void main() async {
 
   await dep.init();
 
-
-
   runApp(MyApp());
 }
 
@@ -30,8 +28,8 @@ class MyApp extends StatelessWidget {
         return GetBuilder<RecommendedFoodController>(builder: (_) {
           return GetMaterialApp(
             debugShowCheckedModeBanner: false,
-             initialRoute: AppRouter.getSplashPage(),
-             getPages: AppRouter.routes,
+            initialRoute: AppRouter.getSplashPage(),
+            getPages: AppRouter.routes,
           );
         });
       },

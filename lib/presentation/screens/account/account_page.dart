@@ -19,11 +19,8 @@ class AccountPage extends StatelessWidget {
     bool userLoggedIn = Get.find<AuthController>().userLoggedIn();
 
     if (userLoggedIn) {
-
-
       Get.find<UserController>().getUserInfo();
 
-      print('user has  logged in');
     }
 
     return Scaffold(
@@ -37,9 +34,8 @@ class AccountPage extends StatelessWidget {
         ),
       ),
       body: GetBuilder<UserController>(builder: (userController) {
-        return userLoggedIn
-            ? (userController.isLoading
-                ? Container(
+        return userLoggedIn ?
+        (userController.isLoading ? Container(
                     width: double.maxFinite,
                     margin: EdgeInsets.only(top: Dimensions.height20),
                     child: Column(
@@ -65,7 +61,7 @@ class AccountPage extends StatelessWidget {
                                   iconColor: Colors.white,
                                 ),
                                 bigText: BigText(
-                                  text: '01154284595',
+                                  text: userController.userModel.name,
                                 ),
                               ),
                               SizedBox(height: Dimensions.height20),
@@ -78,7 +74,7 @@ class AccountPage extends StatelessWidget {
                                   iconColor: Colors.white,
                                 ),
                                 bigText: BigText(
-                                  text: '01154284595',
+                                  text: userController.userModel.phone,
                                 ),
                               ),
                               SizedBox(height: Dimensions.height20),
@@ -91,7 +87,7 @@ class AccountPage extends StatelessWidget {
                                   iconColor: Colors.white,
                                 ),
                                 bigText: BigText(
-                                  text: 'moataz41@gmail.com',
+                                  text: userController.userModel.email,
                                 ),
                               ),
                               SizedBox(height: Dimensions.height20),
@@ -129,6 +125,7 @@ class AccountPage extends StatelessWidget {
                                         .clearSharedData();
                                     Get.find<CartController>().clearCartList();
                                     Get.find<CartController>().clear();
+
                                     Get.offNamed(AppRouter.getSignUpPage());
                                   } else {
                                     print('you logged out');
@@ -153,14 +150,16 @@ class AccountPage extends StatelessWidget {
                         ))
                       ],
                     ),
-                  )
-                : Center(
+                  ) :
+        Center(
                     child: CircularProgressIndicator(
                     color: AppColors.mainColor,
-                  )))
-            : Container(
-                child: Center(
-                  child: Text('you must login'),
+                  ))) :
+        Center(
+                child: Container(
+                  child: const Center(
+                    child: Text('you must login'),
+                  ),
                 ),
               );
       }),

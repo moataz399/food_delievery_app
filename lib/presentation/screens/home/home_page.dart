@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:food_delievery_app/app_router.dart';
-import 'package:food_delievery_app/controllers/auth_controller.dart';
-import 'package:food_delievery_app/controllers/cart_controller.dart';
-import 'package:food_delievery_app/presentation/screens/auth/signin_page.dart';
 import 'package:food_delievery_app/presentation/screens/home/main_food_page.dart';
 import 'package:food_delievery_app/utils/colors.dart';
-import 'package:get/get.dart';
-
-import '../../../utils/dimensions.dart';
 import '../account/account_page.dart';
 import '../cart/cart_history_page.dart';
 
