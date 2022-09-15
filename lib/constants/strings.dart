@@ -16,6 +16,7 @@ class AppStrings {
   static const String AddressListUri= 'api/v1/customer/address/list';
 
 
+  static const String zone_uri= 'api/v1/config/get-zone-id';
 
   static const String geoCode_Uri= '/api/v1/config/geocode-api';
 

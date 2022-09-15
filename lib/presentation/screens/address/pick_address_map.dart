@@ -25,15 +25,13 @@ class PickAddressMap extends StatefulWidget {
 
 class _PickAddressMapState extends State<PickAddressMap> {
   late LatLng _initialPosition;
-  late GoogleMapController _mapController;
   late CameraPosition _cameraPosition;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     if (Get.find<LocationController>().addressList.isEmpty) {
-      _initialPosition = LatLng(31.417540, 31.814444);
+      _initialPosition = const LatLng(45.417540, -122.814444);
 
       _cameraPosition = CameraPosition(target: _initialPosition, zoom: 12);
     } else {
@@ -62,10 +60,6 @@ class _PickAddressMapState extends State<PickAddressMap> {
                         initialCameraPosition:
                             CameraPosition(target: _initialPosition, zoom: 12),
                         zoomControlsEnabled: false,
-                        compassEnabled: false,
-                        indoorViewEnabled: true,
-                        mapToolbarEnabled: false,
-                        myLocationEnabled: true,
                         onCameraMove: (CameraPosition position) {
                           _cameraPosition = position;
                         },
@@ -76,8 +70,12 @@ class _PickAddressMapState extends State<PickAddressMap> {
                       ),
                       Center(
                           child: !locationController.isLoading
-                              ? Image.asset('assets/images/marker.png')
-                              : CircularProgressIndicator()),
+                              ? Image.asset(
+                                  'assets/images/marker.png',
+                                  height: 50,
+                                  width: 50,
+                                )
+                              : const CircularProgressIndicator()),
                       Positioned(
                         top: Dimensions.height45,
                         left: Dimensions.width20,
@@ -100,7 +98,7 @@ class _PickAddressMapState extends State<PickAddressMap> {
                               ),
                               Expanded(
                                 child: Text(
-                                    "${locationController.pickPlaceMark.name ?? ""}",
+                                    locationController.pickPlaceMark.name ?? "",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: Dimensions.iconsSize16),
@@ -115,37 +113,50 @@ class _PickAddressMapState extends State<PickAddressMap> {
                         bottom: 80,
                         left: Dimensions.width20,
                         right: Dimensions.width20,
-                        child: CustomButton(
-                          buttonText: 'pick address',
-                          onPressed: locationController.isLoading
-                              ? null
-                              : () {
-                                  if (locationController
-                                              .pickposition.latitude !=
-                                          0 &&
-                                      locationController.pickPlaceMark.name !=
-                                          null) {
-                                    if (widget.fromAddress) {
-                                      if (widget.googleMapController != null) {
-                                        print('now u can click this');
+                        child: locationController.serviceLoading
+                            ? const Center(
+                                child: CircularProgressIndicator(),
+                              )
+                            : CustomButton(
+                                buttonText: locationController.inZone
+                                    ? widget.fromAddress
+                                        ? 'pick address'
+                                        : "pick location"
+                                    : 'service is not available in your area ',
+                                onPressed: (locationController.buttonDisabled ||
+                                        locationController.isLoading)
+                                    ? null
+                                    : () {
+                                        if (locationController
+                                                    .pickPosition.latitude !=
+                                                0 &&
+                                            locationController
+                                                    .pickPlaceMark.name !=
+                                                null) {
+                                          if (widget.fromAddress) {
+                                            if (widget.googleMapController !=
+                                                null) {
+                                              print('now u can click this');
 
-                                        widget.googleMapController!.moveCamera(
-                                            CameraUpdate.newCameraPosition(
-                                                CameraPosition(
-                                                    target: LatLng(
-                                                        locationController
-                                                            .pickposition
-                                                            .latitude,
-                                                        locationController
-                                                            .pickposition
-                                                            .longitude))));
-                                        locationController.setAddAddressData();
-                                      }
-                                      Get.toNamed(AppRouter.getAddressPage());
-                                    }
-                                  }
-                                },
-                        ),
+                                              widget.googleMapController!.moveCamera(
+                                                  CameraUpdate.newCameraPosition(
+                                                      CameraPosition(
+                                                          target: LatLng(
+                                                              locationController
+                                                                  .pickPosition
+                                                                  .latitude,
+                                                              locationController
+                                                                  .pickPosition
+                                                                  .longitude))));
+                                              locationController
+                                                  .setAddAddressData();
+                                            }
+                                            Get.back();
+                                            //   Get.toNamed(AppRouter.getAddressPage());
+                                          }
+                                        }
+                                      },
+                              ),
                       )
                     ],
                   )),

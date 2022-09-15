@@ -82,8 +82,8 @@ class AppRouter {
     GetPage(
         name: pickAddressPage,
         page: () {
-          PickAddressMap _pickAddress = Get.arguments;
-          return _pickAddress;
+          PickAddressMap pickAddress = Get.arguments;
+          return pickAddress;
         },
         transition: Transition.fadeIn)
   ];

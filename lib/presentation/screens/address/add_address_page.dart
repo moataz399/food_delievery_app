@@ -29,9 +29,9 @@ class _AddAddressPageState extends State<AddAddressPage> {
 
   late bool _isLogged;
   CameraPosition _cameraPosition =
-      CameraPosition(target: LatLng(31.417540, 31.814444), zoom: 17);
+      CameraPosition(target: LatLng(45.417540, -122.814444), zoom: 17);
 
-  late LatLng _initialPosition = LatLng(31.417540, 31.814444);
+  late LatLng _initialPosition = LatLng(45.417540, -122.814444);
 
   @override
   void initState() {
@@ -88,14 +88,14 @@ class _AddAddressPageState extends State<AddAddressPage> {
                   "${locationController.placeMark.locality ?? ''}"
                   "${locationController.placeMark.postalCode ?? ''}"
                   "${locationController.placeMark.country ?? ''}";
-              print('address in my view is ' + _addressController.text);
+              print('address in my view is ${_addressController.text}');
               return SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       height: 140,
-                      margin: EdgeInsets.all(5),
+                      margin: const EdgeInsets.all(5),
                       width: MediaQuery.of(context).size.width,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
@@ -107,7 +107,7 @@ class _AddAddressPageState extends State<AddAddressPage> {
                         children: [
                           GoogleMap(
                             initialCameraPosition: CameraPosition(
-                                target: _initialPosition, zoom: 17),
+                                target: _initialPosition, zoom: 12),
                             zoomControlsEnabled: false,
                             compassEnabled: false,
                             indoorViewEnabled: true,
