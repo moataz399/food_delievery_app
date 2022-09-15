@@ -10,6 +10,15 @@ class AppStrings {
   static const String userInfo = '/api/v1/customer/info';
 
 
+  static const String userAddress= 'user_address';
+
+  static const String addUserAddress= 'api/v1/customer/address/add';
+  static const String AddressListUri= 'api/v1/customer/address/list';
+
+
+
+  static const String geoCode_Uri= '/api/v1/config/geocode-api';
+
   static const TOKEN = '';
 
   static const phone = '';

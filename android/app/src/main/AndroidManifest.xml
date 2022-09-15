@@ -1,9 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.food_delievery_app">
+          xmlns:tools="http://schemas.android.com/tools" package="com.example.food_delievery_app">
+
     <application
+
             android:label="food_delievery_app"
             android:name="${applicationName}"
             android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+                   android:value="AIzaSyBIdL5dAkJ86O_9cD_kDY6obwjb0WXljGs"/>
         <activity
                 android:name=".MainActivity"
                 android:exported="true"
@@ -20,8 +24,7 @@
                     android:name="io.flutter.embedding.android.NormalTheme"
                     android:resource="@style/NormalTheme"
             />
-            <meta-data android:name="com.google.android.geo.API_KEY"
-                       android:value="AIzaSyBIdL5dAkJ86O_9cD_kDY6obwjb0WXljGs"/>
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -32,6 +35,7 @@
         <meta-data
                 android:name="flutterEmbedding"
                 android:value="2" />
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+
     </application>
+
 </manifest>

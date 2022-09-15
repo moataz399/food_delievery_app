@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delievery_app/controllers/auth_controller.dart';
+import 'package:food_delievery_app/controllers/location_controller.dart';
 import 'package:food_delievery_app/controllers/user_controller.dart';
 import 'package:food_delievery_app/presentation/widgets/account_widget.dart';
 import 'package:food_delievery_app/presentation/widgets/app_icon.dart';
@@ -20,7 +21,6 @@ class AccountPage extends StatelessWidget {
 
     if (userLoggedIn) {
       Get.find<UserController>().getUserInfo();
-
     }
 
     return Scaffold(
@@ -34,8 +34,9 @@ class AccountPage extends StatelessWidget {
         ),
       ),
       body: GetBuilder<UserController>(builder: (userController) {
-        return userLoggedIn ?
-        (userController.isLoading ? Container(
+        return userLoggedIn
+            ? (userController.isLoading
+                ? Container(
                     width: double.maxFinite,
                     margin: EdgeInsets.only(top: Dimensions.height20),
                     child: Column(
@@ -91,18 +92,47 @@ class AccountPage extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(height: Dimensions.height20),
-                              AccountWidget(
-                                appIcon: AppIcon(
-                                  icon: Icons.location_on,
-                                  iconsSize: Dimensions.height10 * 5 / 2,
-                                  size: Dimensions.height10 * 5,
-                                  backGroundColor: AppColors.yellowColor,
-                                  iconColor: Colors.white,
-                                ),
-                                bigText: BigText(
-                                  text: 'fill in your address',
-                                ),
-                              ),
+                              GetBuilder<LocationController>(
+                                  builder: (locationController) {
+                                if (userLoggedIn &&
+                                    locationController.addressList.isEmpty) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Get.offNamed(AppRouter.getAddressPage());
+                                    },
+                                    child: AccountWidget(
+                                      appIcon: AppIcon(
+                                        icon: Icons.location_on,
+                                        iconsSize: Dimensions.height10 * 5 / 2,
+                                        size: Dimensions.height10 * 5,
+                                        backGroundColor: AppColors.yellowColor,
+                                        iconColor: Colors.white,
+                                      ),
+                                      bigText: BigText(
+                                        text: 'fill in your address',
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Get.offNamed(AppRouter.getAddressPage());
+                                    },
+                                    child: AccountWidget(
+                                      appIcon: AppIcon(
+                                        icon: Icons.location_on,
+                                        iconsSize: Dimensions.height10 * 5 / 2,
+                                        size: Dimensions.height10 * 5,
+                                        backGroundColor: AppColors.yellowColor,
+                                        iconColor: Colors.white,
+                                      ),
+                                      bigText: BigText(
+                                        text: 'your address',
+                                      ),
+                                    ),
+                                  );
+                                }
+                              }),
                               SizedBox(height: Dimensions.height20),
                               AccountWidget(
                                 appIcon: AppIcon(
@@ -125,6 +155,9 @@ class AccountPage extends StatelessWidget {
                                         .clearSharedData();
                                     Get.find<CartController>().clearCartList();
                                     Get.find<CartController>().clear();
+
+                                    Get.find<LocationController>()
+                                        .clearAddressList();
 
                                     Get.offNamed(AppRouter.getSignUpPage());
                                   } else {
@@ -150,12 +183,13 @@ class AccountPage extends StatelessWidget {
                         ))
                       ],
                     ),
-                  ) :
-        Center(
+                  )
+                : Center(
                     child: CircularProgressIndicator(
-                    color: AppColors.mainColor,
-                  ))) :
-        Center(
+                      color: AppColors.mainColor,
+                    ),
+                  ))
+            : Center(
                 child: Container(
                   child: const Center(
                     child: Text('you must login'),

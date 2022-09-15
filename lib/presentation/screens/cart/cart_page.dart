@@ -316,13 +316,15 @@ class CartPage extends StatelessWidget {
                               BorderRadius.circular(Dimensions.radius20),
                         ),
                         child: GestureDetector(
-                          onTap: ()async {
+                          onTap: () async {
                             if (Get.find<AuthController>().userLoggedIn()) {
-                            await  Get.find<UserController>().getUserInfo();
+                              await Get.find<UserController>().getUserInfo();
                               if (Get.find<LocationController>()
                                   .addressList
                                   .isEmpty) {
                                 Get.toNamed(AppRouter.getAddressPage());
+                              } else {
+                                Get.offNamed(AppRouter.getInitial());
                               }
                             } else {
                               Get.toNamed(AppRouter.getSignInPage());
