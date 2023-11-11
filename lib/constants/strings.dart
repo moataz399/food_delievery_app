@@ -17,6 +17,10 @@ class AppStrings {
 
 
   static const String zone_uri= 'api/v1/config/get-zone-id';
+  static const String search_location_uri= 'api/v1/config/place-api-autocomplete';
+  static const String place_details_uri= 'api/v1/config/place-api-details';
+
+
 
   static const String geoCode_Uri= '/api/v1/config/geocode-api';
 

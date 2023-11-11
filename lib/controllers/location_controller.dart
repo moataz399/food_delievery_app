@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:core';
 
+import 'package:flutter/material.dart';
+import 'package:food_delievery_app/data/api/api_checker.dart';
 import 'package:food_delievery_app/models/response_model.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -9,6 +11,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../data/repository/location_repo.dart';
 import '../models/address_model.dart';
+import 'package:google_maps_webservice/src/places.dart';
 
 class LocationController extends GetxController implements GetxService {
   final LocationRepo locationRepo;
@@ -112,7 +115,9 @@ class LocationController extends GetxController implements GetxService {
           fromAddress
               ? _placeMark = Placemark(name: _address)
               : _pickPlaceMark = Placemark(name: _address);
-        }
+        } else {
+          _changeAddress = true;
+         }
       } catch (e) {
         print(e.toString());
       }
@@ -237,7 +242,7 @@ class LocationController extends GetxController implements GetxService {
     } else {
       _inZone = false;
 
-      _responseModel = ResponseModel(true, response.statusText!);
+      _responseModel = ResponseModel(false, response.statusText!);
     }
 
     if (markerLoad) {
@@ -245,8 +250,62 @@ class LocationController extends GetxController implements GetxService {
     } else {
       _serviceLoading = false;
     }
-    print('zone response code is '+ response.statusCode.toString());
+    print('zone response code is ' + response.statusCode.toString());
     update();
     return _responseModel;
+  }
+
+  List<Prediction> _predictionList = [];
+
+  Future<List<Prediction>> searchLocation(
+      BuildContext context, String text) async {
+    if (text.isNotEmpty) {
+      Response response = await locationRepo.searchLocation(text);
+      if (response.statusCode == 200 && response.body['status'] == 'OK') {
+        _predictionList = [];
+        response.body['predictions'].forEach((prediction) =>
+            _predictionList.add(Prediction.fromJson(prediction)));
+      } else {
+        ApiChecker.checkApi(response);
+      }
+    }
+    return _predictionList;
+  }
+
+  setLocation(
+      String placeId, String address, GoogleMapController mapController) async {
+    _isLoading = true;
+    update();
+    PlacesDetailsResponse detail;
+
+    Response response = await locationRepo.setLocation(placeId);
+
+    detail = PlacesDetailsResponse.fromJson(response.body);
+
+    _pickPosition = Position(
+        longitude: detail.result.geometry!.location.lng,
+        latitude: detail.result.geometry!.location.lat,
+        timestamp: DateTime.now(),
+        accuracy: 1,
+        altitude: 1,
+        heading: 1,
+        speed: 1,
+        speedAccuracy: 1);
+    _pickPlaceMark = Placemark(name: address);
+    _changeAddress = false;
+
+    if (!mapController.isNull) {
+      mapController.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+              target: LatLng(detail.result.geometry!.location.lat,
+                  detail.result.geometry!.location.lng),
+              zoom: 17),
+        ),
+      );
+    }
+    _isLoading = false;
+
+    update();
   }
 }

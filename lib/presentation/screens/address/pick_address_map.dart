@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delievery_app/base/custom_button.dart';
 import 'package:food_delievery_app/controllers/location_controller.dart';
+import 'package:food_delievery_app/presentation/widgets/search_location_dialogue_page.dart';
 import 'package:food_delievery_app/utils/dimensions.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -26,6 +27,7 @@ class PickAddressMap extends StatefulWidget {
 class _PickAddressMapState extends State<PickAddressMap> {
   late LatLng _initialPosition;
   late CameraPosition _cameraPosition;
+  late GoogleMapController _mapController;
 
   @override
   void initState() {
@@ -67,6 +69,9 @@ class _PickAddressMapState extends State<PickAddressMap> {
                           Get.find<LocationController>()
                               .updatePosition(_cameraPosition, false);
                         },
+                        onMapCreated: (GoogleMapController mapController) {
+                          _mapController = mapController;
+                        },
                       ),
                       Center(
                           child: !locationController.isLoading
@@ -80,32 +85,47 @@ class _PickAddressMapState extends State<PickAddressMap> {
                         top: Dimensions.height45,
                         left: Dimensions.width20,
                         right: Dimensions.width20,
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: Dimensions.width10),
-                          height: 50,
-                          decoration: BoxDecoration(
-                            color: AppColors.mainColor,
-                            borderRadius:
-                                BorderRadius.circular(Dimensions.radius20 / 2),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.location_on,
-                                size: 25,
-                                color: AppColors.yellowColor,
-                              ),
-                              Expanded(
-                                child: Text(
-                                    locationController.pickPlaceMark.name ?? "",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: Dimensions.iconsSize16),
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis),
-                              )
-                            ],
+                        child: InkWell(
+                          onTap: () {
+                            Get.dialog(LocationDialogue(
+                                mapController: _mapController));
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: Dimensions.width10),
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: AppColors.mainColor,
+                              borderRadius: BorderRadius.circular(
+                                  Dimensions.radius20 / 2),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.location_on,
+                                  size: 25,
+                                  color: AppColors.yellowColor,
+                                ),
+                                Expanded(
+                                  child: Text(
+                                      locationController.pickPlaceMark.name ??
+                                          "",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: Dimensions.iconsSize16),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis),
+                                ),
+                                SizedBox(
+                                  width: Dimensions.width10,
+                                ),
+                                Icon(
+                                  Icons.search,
+                                  color: AppColors.yellowColor,
+                                  size: 25,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
