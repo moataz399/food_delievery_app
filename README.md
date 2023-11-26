@@ -29,13 +29,22 @@ This is a food delivery e-commerce app built with Flutter and managed state usin
 **Note:** The payment section is currently under development and not functional.
 
 ## Features
+ ```bash
+Home page (shows popuplar product and recommended products)
+Sign in and Sign up (sign up with mobile with verification code)
+Shopping cart (a real shopping cart with add and remove items on the fly)
+Local cart history page (using a local storage)
+Server cart history page (sync with database)
+Profile page (personal information)
+Popular food page (view popular food, add or remove items from the cart)
+Recommended food page (view recommended food, add or remove from the cart)
+Order more function(newly added feature, it helps you order)
+Go to sign in page (sign in page authentication before you place order)
+Address page (address with authentication before you place order)
+Google map page (for picking up location and save address)
+Search address (search address or location for google map and save in the database.
 
-- User authentication
-- Browse restaurants and menus
-- Place orders
-- Track order delivery status
-- User profile management
-
+ ```
 ## Requirements
 
 - Flutter: [Installation Guide](https://flutter.dev/docs/get-started/install)
@@ -60,6 +69,29 @@ This is a food delivery e-commerce app built with Flutter and managed state usin
     ```bash
     flutter pub get
     ```
+# Libraries Used
+```bash
+dots_indicator: ^2.1.0
+  get: ^4.6.1
+  shared_preferences: ^2.0.14
+  intl: ^0.17.0
+  google_maps_flutter: ^2.1.12
+  geocoding: ^2.0.4
+  geolocator: ^9.0.1
+  google_maps_flutter_web: ^0.3.0+2
+  flutter_google_places: ^0.3.0
+  flutter_typeahead: ^3.1.3
+  webview_flutter: ^2.0.9
+```
+### Known Issues
+The payment section is currently under development and not functional. Contributions to resolve this issue are welcome.
+
+###Contributing
+Fork the repository.
+Create a new branch for your feature: git checkout -b feature-name.
+Commit your changes: git commit -m 'Add some feature'.
+Push to the branch: git push origin feature-name.
+Submit a pull request.
 
 ## Usage
 
@@ -67,3 +99,4 @@ To run the app, use the following command:
 
 ```bash
 flutter run
+```
